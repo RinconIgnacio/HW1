@@ -46,3 +46,30 @@ bool day_average(const double* temps, int rows, int cols, int day, double& avera
     average = total / rows;
     return true;
 }
+
+bool find_hottest(const double* temps, int rows, int cols, int& hot_row, int& hot_col) {
+    if (rows <= 0 || cols <= 0) {
+        return false;
+    }
+
+    int best_row = 0;
+    int best_col = 0;
+    double highest = temps[grid_index(0, 0, cols)];
+
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+            int index = grid_index(row, col, cols);
+
+            if (temps[index] > highest) {
+                highest = temps[index];
+                best_row = row;
+                best_col = col;
+            }
+        }
+    }
+
+    hot_row = best_row;
+    hot_col = best_col;
+
+    return true;
+}
