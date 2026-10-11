@@ -15,3 +15,18 @@ int count_above(const double* temps, int rows, int cols, double threshold){
 
     return count;
 }
+bool station_average(const double* temps, int rows, int cols, int station, double& average) {
+    if (cols <= 0 || !in_bounds(station, 0, rows, cols)) {
+        return false;
+    }
+
+    double total = 0.0;
+
+    for (int day = 0; day < cols; day++) {
+        int index = grid_index(station, day, cols);
+        total += temps[index];
+    }
+
+    average = total / cols;
+    return true;
+}
