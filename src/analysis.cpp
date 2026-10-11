@@ -30,3 +30,19 @@ bool station_average(const double* temps, int rows, int cols, int station, doubl
     average = total / cols;
     return true;
 }
+
+bool day_average(const double* temps, int rows, int cols, int day, double& average) {
+    if (rows <= 0 || !in_bounds(0, day, rows, cols)) {
+        return false;
+    }
+
+    double total = 0.0;
+
+    for (int station = 0; station < rows; station++) {
+        int index = grid_index(station, day, cols);
+        total += temps[index];
+    }
+
+    average = total / rows;
+    return true;
+}
